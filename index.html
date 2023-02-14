@@ -173,10 +173,9 @@ button:hover {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
-// Seleciona os demais inscritos
-                else if (!sorteados.includes(sorteado)) {
-                    sorteados.push(sorteado);
-                }
+// Selecionar os demais inscritos
+            else if (!sorteados.includes(sorteado)) {
+                sorteados.push(sorteado);
             }
 // Criação dos parâmetros para a página de resultado
             let sorteioData = document.getElementById("battle-date").value;
