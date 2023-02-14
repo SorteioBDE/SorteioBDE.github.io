@@ -146,11 +146,11 @@ button:hover {
                         countMulheresOuNB++;
                     }
                 }
-// Seleciona 4 mulheres e não binários
-                if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
-                    sorteados.push(sorteado);
-                    mulheresOuNB++;
-                }
+// Selecionar 4 pessoas que sejam mulheres ou não binárias
+            if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
+                sorteados.push(sorteado);
+                mulheresOuNB++;
+            }
 // Se se tiver 4 ou menos inscritos mulheres e não binários, todos esses inscritos serão sorteados
                 else if (mulheresOuNB < 4 && countMulheresOuNB <= 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
@@ -163,11 +163,11 @@ button:hover {
                         countIniciantes++;
                     }
                 }
-// Seleciona 2 pessoas que não tenham batalhado antes 
-                else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado) && (sorteado.genero != "Feminino" || sorteado.genero != "Não binário")) {
-                    sorteados.push(sorteado);
-                    iniciantes++;
-                }
+// Selecionar 2 pessoas que não tenham batalhado antes 
+            else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
+                sorteados.push(sorteado);
+                iniciantes++;
+            }
 // Se se tiver 2 ou menos inscritos que nunca batalharam, todos esses inscritos serão sorteados
                 else if (iniciantes < 2 && countIniciantes <= 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado) && (sorteado.genero != "Feminino" || sorteado.genero != "Não binário")) {
                     sorteados.push(sorteado);
