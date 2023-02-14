@@ -83,7 +83,7 @@ font-size: 1rem;
 	<h1>Resultado da Batalha</h1>
 	<p>Data da Batalha: <span id="sorteioData"></span></p>
 	<p>Número da Batalha: <span id="sorteioNumero"></span></p>
-	<table id="tabela-confrontos">
+<table id="tabela-confrontos" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; border: 0; width: 100%;">
 		<tr>
 			<th>Confronto</th>
 			<th>Oitavas de finais</th>
@@ -112,6 +112,47 @@ font-size: 1rem;
 		resultado += "</tr>";
 	}
 	tabelaConfrontos.innerHTML += resultado;
+
+
+// Mesclar as células da linha 1, coluna 2 e da linha 2, coluna 2
+let mesclarCelulas1 = tabelaConfrontos.rows[1].cells[2].rowSpan = 2;
+tabelaConfrontos.rows[2].cells[2].remove();
+
+// Mesclar as células da linha 3, coluna 2 e da linha 4, coluna 2
+let mesclarCelulas2 = tabelaConfrontos.rows[3].cells[2].rowSpan = 2;
+tabelaConfrontos.rows[4].cells[2].remove();
+
+// Mesclar as células da linha 5, coluna 2 e da linha 6, coluna 2
+let mesclarCelulas3 = tabelaConfrontos.rows[5].cells[2].rowSpan = 2;
+tabelaConfrontos.rows[6].cells[2].remove();
+
+// Mesclar as células da linha 7, coluna 2 e da linha 8, coluna 2
+let mesclarCelulas4 = tabelaConfrontos.rows[7].cells[2].rowSpan = 2;
+tabelaConfrontos.rows[8].cells[2].remove();
+
+// Mesclar as células da linhas 1, 2, 3 e 4, coluna 3
+let mesclarCelulas5 = tabelaConfrontos.rows[1].cells[3].rowSpan = 4;
+tabelaConfrontos.rows[2].cells[3].remove();
+tabelaConfrontos.rows[3].cells[3].remove();
+tabelaConfrontos.rows[4].cells[3].remove();
+
+// Mesclar as células da linhas 5, 6, 7 e 8, coluna 3
+let mesclarCelulas6 = tabelaConfrontos.rows[5].cells[3].rowSpan = 4;
+tabelaConfrontos.rows[6].cells[3].remove();
+tabelaConfrontos.rows[7].cells[3].remove();
+tabelaConfrontos.rows[8].cells[3].remove();
+
+// Mesclar as células da linhas 1, 2, 3, 4, 5, 6, 7 e 8, coluna 4
+let mesclarCelulas7 = tabelaConfrontos.rows[1].cells[4].rowSpan = 8;
+if(tabelaConfrontos.rows[1].cells[5]) {
+tabelaConfrontos.rows[2].cells[4].remove();
+tabelaConfrontos.rows[3].cells[4].remove();
+tabelaConfrontos.rows[4].cells[4].remove();
+tabelaConfrontos.rows[5].cells[4].remove();
+tabelaConfrontos.rows[6].cells[4].remove();
+tabelaConfrontos.rows[7].cells[4].remove();
+tabelaConfrontos.rows[8].cells[4].remove();
+}
 
  // Adiciona um botão na página para exportar a tabela de confrontos para CSV
 var btnExport = document.createElement("button");
