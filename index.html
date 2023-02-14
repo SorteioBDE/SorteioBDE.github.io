@@ -105,8 +105,15 @@ button:hover {
   animation: fadeIn 1s;
   display: none;
 }
+
+@media only screen and (max-width: 768px) {
+   body {
+       flex-direction: column;
+       align-items: center;
+   }
+}
 </style>
-<script>
+    <script>
 // Declaração de variáveis
         let inscritos = [];
         let sorteados = [];
@@ -132,37 +139,13 @@ button:hover {
 // Seleciona um número aleatório de 0 ao número de inscritos 
                 let n = Math.floor(Math.random() * inscritos.length);
                 let sorteado = inscritos[n];
-// Verifica o número de inscritos mulheres e não binários
-                let countMulheresOuNB = 0;
-                for(let i=0; i<inscritos.length; i++) {
-                    if(inscritos[i].genero == "Feminino" || inscritos[i].genero == "Não binário") {
-                        countMulheresOuNB++;
-                    }
-                }
-// Seleciona 4 mulheres e não binários
+// Seleciona 4 pessoas que sejam mulheres ou não binárias
                 if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     mulheresOuNB++;
                 }
-// Se se tiver 4 ou menos inscritos mulheres e não binários, todos esses inscritos serão sorteados
-                else if (mulheresOuNB < 4 && countMulheresOuNB <= 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
-                    sorteados.push(sorteado);
-                    mulheresOuNB++;
-                }
-// Verifica o número de inscritos que nunca batalharam
-                let countIniciantes = 0;
-                for(let i=0; i<inscritos.length; i++) {
-                    if(!inscritos[i].batalhouAntes) {
-                        countIniciantes++;
-                    }
-                }
 // Seleciona 2 pessoas que não tenham batalhado antes 
                 else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
-                    sorteados.push(sorteado);
-                    iniciantes++;
-                }
-// Se se tiver 2 ou menos inscritos que nunca batalharam, todos esses inscritos serão sorteados
-                else if (iniciantes < 2 && countIniciantes <= 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
@@ -240,8 +223,6 @@ button:hover {
             document.getElementById('box3').style.display = 'block';
         });
     </script>
-</head>
-<body>
 </head>
 <body>
       <div class="box" id="box1" style="display: block;">
