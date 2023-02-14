@@ -106,7 +106,7 @@ button:hover {
   display: none;
 }
 </style>
-   <script>
+<script>
 // Declaração de variáveis
         let inscritos = [];
         let sorteados = [];
@@ -157,12 +157,12 @@ button:hover {
                     }
                 }
 // Seleciona 2 pessoas que não tenham batalhado antes 
-                else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
+                else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado) && (sorteado.genero != "Feminino" || sorteado.genero != "Não binário")) {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
 // Se se tiver 2 ou menos inscritos que nunca batalharam, todos esses inscritos serão sorteados
-                else if (iniciantes < 2 && countIniciantes <= 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
+                else if (iniciantes < 2 && countIniciantes <= 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado) && (sorteado.genero != "Feminino" || sorteado.genero != "Não binário")) {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
