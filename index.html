@@ -105,13 +105,6 @@ button:hover {
   animation: fadeIn 1s;
   display: none;
 }
-
-@media only screen and (max-width: 768px) {
-   body {
-       flex-direction: column;
-       align-items: center;
-   }
-}
 </style>
     <script>
 // Declaração de variáveis
@@ -144,8 +137,18 @@ button:hover {
                     sorteados.push(sorteado);
                     mulheresOuNB++;
                 }
+// Se se tiver 4 ou menos inscritos mulheres e não binários, todos esses inscritos serão sorteados
+                else if (mulheresOuNB < 4 && inscritos.length == 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
+                    sorteados.push(sorteado);
+                    mulheresOuNB++;
+                }
 // Seleciona 2 pessoas que não tenham batalhado antes 
                 else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
+                    sorteados.push(sorteado);
+                    iniciantes++;
+                }
+// Se se tiver 2 ou menos inscritos que nunca batalharam, todos esses inscritos serão sorteados
+                else if (iniciantes < 2 && inscritos.length == 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
