@@ -115,129 +115,114 @@ button:hover {
 </style>
 <script>
 // Declaração de variáveis
-    let inscritos = [];
-    let sorteados = [];
-    let mulheresOuNB = 0;
-    let iniciantes = 0;
+        let inscritos = [];
+        let sorteados = [];
+        let mulheresOuNB = 0;
+        let iniciantes = 0;
 
 // Função para adicionar novo inscrito
-    function adicionaInscrito(nome, genero, batalhouAntes) {
-        inscritos.push({nome: nome, genero: genero, batalhouAntes: batalhouAntes});
-        atualizaTabela();
-    }
+        function adicionaInscrito(nome, genero, batalhouAntes) {
+            inscritos.push({nome: nome, genero: genero, batalhouAntes: batalhouAntes});
+            atualizaTabela();
+        }
 
 // Função para realizar o sorteio
-    function sorteia() {
-        sorteados = [];
-        mulheresOuNB = 0;
-        iniciantes = 0;
-	     if (inscritos.length < 16) {
-            alert("Não há inscritos suficientes para o sorteio.");
-            return;
-        }
+        function sorteia() {
+            sorteados = [];
+            mulheresOuNB = 0;
+            iniciantes = 0;
+  	     if (inscritos.length < 16) {
+               alert("Não há inscritos suficientes para o sorteio.");
+               return;
+         }
 		while (sorteados.length < 16) {
 // Seleciona um número aleatório de 0 ao número de inscritos 
-            let n = Math.floor(Math.random() * inscritos.length);
-            let sorteado = inscritos[n];
-            let jaSorteado = false;
+                let n = Math.floor(Math.random() * inscritos.length);
+                let sorteado = inscritos[n];
 // Seleciona 4 pessoas que sejam mulheres ou não binárias
-            if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário")) {
-                for (let sorteadoMulheres of sorteados) {
-                    if (sorteadoMulheres.genero == sorteado.genero && sorteadoMulheres.batalhouAntes == sorteado.batalhouAntes) {
-                        jaSorteado = true;
-                    }
-                }
-                if (!jaSorteado && !sorteados.includes(sorteado)) {
+                if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     mulheresOuNB++;
                 }
-            }
 // Seleciona 2 pessoas que não tenham batalhado antes 
-            else if (iniciantes < 2 && !sorteado.batalhouAntes) {
-                for (let sorteadoIniciantes of sorteados) {
-                    if (sorteadoIniciantes.batalhouAntes == sorteado.batalhouAntes) {
-                        jaSorteado = true;
-                    }
-                }
-                if (!jaSorteado && !sorteados.includes(sorteado)) {
+                else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     iniciantes++;
                 }
-            }
 // Seleciona os demais inscritos
-            else if (!sorteados.includes(sorteado)) {
-                sorteados.push(sorteado);
+                else if (!sorteados.includes(sorteado)) {
+                    sorteados.push(sorteado);
+                }
             }
-        }
 // Criação dos parâmetros para a página de resultado
-        let sorteioData = document.getElementById("battle-date").value;
-        let sorteioNumero = document.getElementById("battle-number").value;
-        let sorteioResultado = sorteados.map(function(sorteado) {
-            return sorteado.nome;
-        }).join(",");
+            let sorteioData = document.getElementById("battle-date").value;
+            let sorteioNumero = document.getElementById("battle-number").value;
+            let sorteioResultado = sorteados.map(function(sorteado) {
+                return sorteado.nome;
+            }).join(",");
 // Direciona para a página de resultado
-        window.location.assign("resultado.html?sorteioData=" + sorteioData +
-        "&sorteioNumero=" + sorteioNumero + "&sorteioResultado=" + sorteioResultado);
-        atualizaTabelaSorteio();
-    }
+            window.location.assign("resultado.html?sorteioData=" + sorteioData +
+            "&sorteioNumero=" + sorteioNumero + "&sorteioResultado=" + sorteioResultado);
+            atualizaTabelaSorteio();
+        }
 
 // Função para atualizar a tabela de sorteio
-    function atualizaTabelaSorteio() {
-        let tabelaSorteio = document.getElementById("tabela-sorteio");
-        let resultado = "<tr>";
-        resultado += "<th>Nome</th>";
-        resultado += "<th>Gênero</th>";
-        resultado += "<th>Batalhou Antes?</th>";
-        resultado += "</tr>";
-        for (let sorteado of sorteados) {
-            resultado += "<tr>";
-            resultado += "<td>" + sorteado.nome + "</td>";
-            resultado += "<td>" + sorteado.genero + "</td>";
-            resultado += "<td>" + sorteado.batalhouAntes + "</td>";
+        function atualizaTabelaSorteio() {
+            let tabelaSorteio = document.getElementById("tabela-sorteio");
+            let resultado = "<tr>";
+            resultado += "<th>Nome</th>";
+            resultado += "<th>Gênero</th>";
+            resultado += "<th>Batalhou Antes?</th>";
             resultado += "</tr>";
+            for (let sorteado of sorteados) {
+                resultado += "<tr>";
+                resultado += "<td>" + sorteado.nome + "</td>";
+                resultado += "<td>" + sorteado.genero + "</td>";
+                resultado += "<td>" + sorteado.batalhouAntes + "</td>";
+                resultado += "</tr>";
+            }
+            tabelaSorteio.innerHTML = resultado;
         }
-        tabelaSorteio.innerHTML = resultado;
-    }
-    
+        
 // Função para atualizar a tabela de inscritos
-    function atualizaTabela() {
-        let tabelaInscritos = document.getElementById("tabela-inscritos");
-        let resultado = "<tr>";
-        resultado += "<th>Nome</th>";
-        resultado += "<th>Gênero</th>";
-        resultado += "<th>Batalhou Antes?</th>";
-        resultado += "</tr>";
-        for (let inscrito of inscritos) {
-            resultado += "<tr>";
-            resultado += "<td>" + inscrito.nome + "</td>";
-            resultado += "<td>" + inscrito.genero + "</td>";
-            resultado += "<td>" + inscrito.batalhouAntes + "</td>";
+        function atualizaTabela() {
+            let tabelaInscritos = document.getElementById("tabela-inscritos");
+            let resultado = "<tr>";
+            resultado += "<th>Nome</th>";
+            resultado += "<th>Gênero</th>";
+            resultado += "<th>Batalhou Antes?</th>";
             resultado += "</tr>";
+            for (let inscrito of inscritos) {
+                resultado += "<tr>";
+                resultado += "<td>" + inscrito.nome + "</td>";
+                resultado += "<td>" + inscrito.genero + "</td>";
+                resultado += "<td>" + inscrito.batalhouAntes + "</td>";
+                resultado += "</tr>";
+            }
+            tabelaInscritos.innerHTML = resultado;
         }
-        tabelaInscritos.innerHTML = resultado;
-    }
 
 // Função para exibir o formulário de cadastro de batalha
-    function cadastraBatalha() {
-        document.getElementById('box2').style.display = 'block';
-    }
+        function cadastraBatalha() {
+            document.getElementById('box2').style.display = 'block';
+        }
 
 // Exibe o formulário de inscrições ao pressionar o botão Cadastrar Batalha
-    document.getElementById('cadastrar_batalha').addEventListener('click', cadastraBatalha);
+        document.getElementById('cadastrar_batalha').addEventListener('click', cadastraBatalha);
 
 // Exibe o formulário de inscrições ao escolher as opções de gênero e já ter batalhado antes
-    document.getElementById('nome').addEventListener('change', () => {
-        document.getElementById('box3').style.display = 'block';
-    });
+        document.getElementById('nome').addEventListener('change', () => {
+            document.getElementById('box3').style.display = 'block';
+        });
 
-    document.getElementById('genero').addEventListener('change', () => {
-        document.getElementById('box3').style.display = 'block';
-    });
+        document.getElementById('genero').addEventListener('change', () => {
+            document.getElementById('box3').style.display = 'block';
+        });
 
-    document.getElementById('batalhouAntes').addEventListener('change', () => {
-        document.getElementById('box3').style.display = 'block';
-    });
-</script>
+        document.getElementById('batalhouAntes').addEventListener('change', () => {
+            document.getElementById('box3').style.display = 'block';
+        });
+    </script>
 </head>
 <body>
       <div class="box" id="box1" style="display: block;">
