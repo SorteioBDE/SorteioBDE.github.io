@@ -113,17 +113,20 @@ button:hover {
    }
 }
 </style>
-<script>
+    <script>
+// Declaração de variáveis
         let inscritos = [];
         let sorteados = [];
         let mulheresOuNB = 0;
         let iniciantes = 0;
 
+// Função para adicionar novo inscrito
         function adicionaInscrito(nome, genero, batalhouAntes) {
             inscritos.push({nome: nome, genero: genero, batalhouAntes: batalhouAntes});
             atualizaTabela();
         }
 
+// Função para realizar o sorteio
         function sorteia() {
             sorteados = [];
             mulheresOuNB = 0;
@@ -133,28 +136,37 @@ button:hover {
                return;
          }
 		while (sorteados.length < 16) {
+// Seleciona um número aleatório de 0 ao número de inscritos 
                 let n = Math.floor(Math.random() * inscritos.length);
                 let sorteado = inscritos[n];
+// Seleciona 4 pessoas que sejam mulheres ou não binárias
                 if (mulheresOuNB < 4 && (sorteado.genero == "Feminino" || sorteado.genero == "Não binário") && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     mulheresOuNB++;
-                } else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
+                }
+// Seleciona 2 pessoas que não tenham batalhado antes 
+                else if (iniciantes < 2 && !sorteado.batalhouAntes && !sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                     iniciantes++;
-                } else if (!sorteados.includes(sorteado)) {
+                }
+// Seleciona os demais inscritos
+                else if (!sorteados.includes(sorteado)) {
                     sorteados.push(sorteado);
                 }
-let sorteioData = document.getElementById("battle-date").value;
-let sorteioNumero = document.getElementById("battle-number").value;
-let sorteioResultado = sorteados.map(function(sorteado) {
-return sorteado.nome;
-}).join(",");
-window.location.assign("resultado.html?sorteioData=" + sorteioData +
-"&sorteioNumero=" + sorteioNumero + "&sorteioResultado=" + sorteioResultado);
             }
+// Criação dos parâmetros para a página de resultado
+            let sorteioData = document.getElementById("battle-date").value;
+            let sorteioNumero = document.getElementById("battle-number").value;
+            let sorteioResultado = sorteados.map(function(sorteado) {
+                return sorteado.nome;
+            }).join(",");
+// Direciona para a página de resultado
+            window.location.assign("resultado.html?sorteioData=" + sorteioData +
+            "&sorteioNumero=" + sorteioNumero + "&sorteioResultado=" + sorteioResultado);
             atualizaTabelaSorteio();
         }
 
+// Função para atualizar a tabela de sorteio
         function atualizaTabelaSorteio() {
             let tabelaSorteio = document.getElementById("tabela-sorteio");
             let resultado = "<tr>";
@@ -172,6 +184,7 @@ window.location.assign("resultado.html?sorteioData=" + sorteioData +
             tabelaSorteio.innerHTML = resultado;
         }
         
+// Função para atualizar a tabela de inscritos
         function atualizaTabela() {
             let tabelaInscritos = document.getElementById("tabela-inscritos");
             let resultado = "<tr>";
@@ -189,10 +202,15 @@ window.location.assign("resultado.html?sorteioData=" + sorteioData +
             tabelaInscritos.innerHTML = resultado;
         }
 
+// Função para exibir o formulário de cadastro de batalha
         function cadastraBatalha() {
             document.getElementById('box2').style.display = 'block';
         }
 
+// Exibe o formulário de inscrições ao pressionar o botão Cadastrar Batalha
+        document.getElementById('cadastrar_batalha').addEventListener('click', cadastraBatalha);
+
+// Exibe o formulário de inscrições ao escolher as opções de gênero e já ter batalhado antes
         document.getElementById('nome').addEventListener('change', () => {
             document.getElementById('box3').style.display = 'block';
         });
@@ -204,9 +222,6 @@ window.location.assign("resultado.html?sorteioData=" + sorteioData +
         document.getElementById('batalhouAntes').addEventListener('change', () => {
             document.getElementById('box3').style.display = 'block';
         });
-
-        // Inserir aqui
-        document.getElementById('cadastrar_batalha').addEventListener('click', cadastraBatalha);
     </script>
 </head>
 <body>
